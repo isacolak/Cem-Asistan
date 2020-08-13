@@ -293,8 +293,54 @@ try:
 				elif i == "ses_seviyesi":
 					self.return_a(text.format(ii[0],ii[1]))
 
-				elif i == "ses_ayar" or i == "ses_arttır2" or i == "ses_azalt2":
-					self.return_a(text.format(ii))
+				elif i == "ses_ayar":
+					r = self.ses.setVolume(ii)
+					if r:
+						self.return_a(text.format(ii))
+					else:
+						self.return_a("Malesef bir hata oluştu!")
+
+				elif i == "ses_arttır2":
+					r = self.ses.volumeUp(ii)
+					if r:
+						self.return_a(text.format(ii))
+					else:
+						self.return_a("Malesef bir hata oluştu!")
+
+				elif i == "ses_azalt2":
+					r = self.ses.volumeDOWN(ii)
+					if r:
+						self.return_a(text.format(ii))
+					else:
+						self.return_a("Malesef bir hata oluştu!")
+
+				elif i == "ses_arttır":
+					r = self.ses.volumeUP(5)
+					if r:
+						self.return_a(text)
+					else:
+						self.return_a("Malesef bir hata oluştu!")
+
+				elif i == "ses_azalt":
+					r = self.ses.volumeDOWN(5)
+					if r:
+						self.return_a(text)
+					else:
+						self.return_a("Malesef bir hata oluştu!")
+
+				elif i == "ses_kapat":
+					r = self.ses.volumeSetMute(True)
+					if r:
+						self.return_a(text)
+					else:
+						self.return_a("Malesef bir hata oluştu!")
+
+				elif i == "ses_aç":
+					r = self.ses.volumeSetMute(False)
+					if r:
+						self.return_a(text)
+					else:
+						self.return_a("Malesef bir hata oluştu!")
 
 				else:
 					self.return_a(text)
