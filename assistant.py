@@ -60,7 +60,6 @@ class Assistant:
 
 		for i in a_data["user"]:
 			if query.lower() in a_data["user"][i]:
-				on = False
 				if i == "geliştirici":
 					return (choice(a_data["assistant"][i]),i)
 						
@@ -99,19 +98,15 @@ class Assistant:
 					return (self.doviz.doviz(),i)
 
 				elif i == "ses_arttır":
-					self.ses.volumeUP(5)
 					return (a_data["assistant"][i],i)
 
 				elif i == "ses_azalt":
-					self.ses.volumeDOWN(5)
 					return (a_data["assistant"][i],i)
 
 				elif i == "ses_kapat":
-					self.ses.volumeSetMute(True)
 					return (a_data["assistant"][i],i)
 
 				elif i == "ses_aç":
-					self.ses.volumeSetMute(False)
 					return (a_data["assistant"][i],i)
 
 				elif i == "ses_seviyesi":
@@ -172,7 +167,6 @@ class Assistant:
 
 		for s in a_data["user"]["m_g"]:
 			if s in query.lower():
-				on = False
 				to = re.search('(.+) '+s, query).group(1).split("'")[0]
 				return ("Lütfen e-postanın içeriğini söylermisin.","m_g")
 
@@ -232,8 +226,6 @@ class Assistant:
 					print(lampp)
 
 					return (lamp+"ışığı açılıyor","lamba_ac")
-							
-				on = False
 
 		for l in a_data["user"]["lamba_kapat"]:
 			if l in query.lower():
@@ -291,45 +283,22 @@ class Assistant:
 					print(lampp)
 
 					return (lamp+"ışığı kapatılıyor","lamba_kapat")
-						
-				on = False
 
 		for l in a_data["user"]["kapi_kilit_ac"]:
 			if l == query.lower():
 				return ("Kapı kilidi açılıyor","kapi_kilit_ac")
-						
-				on = False
 
 		for l in a_data["user"]["kapi_kilit_kapat"]:
 			if l == query.lower():
 				return ("Kapı kilidi kapatılıyor","kapi_kilit_kapat")
-						
-				on = False
 
 		for l in a_data["user"]["fan_ac"]:
 			if l == query.lower():
 				return ("Fan açılıyor","fan_ac")
-						
-				on = False
 
 		for l in a_data["user"]["fan_kapat"]:
 			if l == query.lower():
 				return ("Fan kapatılıyor","fan_kapat")
-						
-				on = False
-		"""
-		if on:
-			if False:
-				return (query, query+" Google'da aranıyor.",i)
-				self.web.search_google(query)
-			else:
-				if query == "None":
-					text = "self.Ses Tanıma Hatası"
-					return (text,i)
-				else:
-					return (query+" Google'da aranıyor.",i)
-					self.web.search_google(query)
-		"""
 
 		s = query.split()
 
