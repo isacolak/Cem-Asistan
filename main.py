@@ -4,7 +4,7 @@ try:
 	import sys
 	import time
 	import socket
-	from gui import *
+	from Modules.gui import *
 	from random import choice
 	from threading import Thread
 	from PyQt5 import QtMultimedia
