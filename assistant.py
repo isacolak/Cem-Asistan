@@ -97,7 +97,7 @@ class Assistant:
 				elif i == "doviz":
 					return (self.doviz.doviz(),i)
 
-				elif i == "ses_arttır":
+				elif i == "ses_arttir":
 					return (a_data["assistant"][i],i)
 
 				elif i == "ses_azalt":
@@ -305,16 +305,16 @@ class Assistant:
 		if len(s) == 4:
 			l = s[-2]
 
-			if query == a_data["user"]["ses_ayar"].format(l):
+			if query == a_data["user"]["ses_ayar"][0].format(l):
 				return (a_data["assistant"]["ses_ayar"],"ses_ayar",int(l))
 
 		elif len(s) == 3:
 			l = s[-2]
 
-			if query == a_data["user"]["ses_arttır2"].format(l):
+			if query == a_data["user"]["ses_arttir2"][0].format(l):
 				return (a_data["assistant"]["ses_arttır2"],"ses_arttır2",int(l))
 
-			elif query == a_data["user"]["ses_azalt2"].format(l):
+			elif query == a_data["user"]["ses_azalt2"][0].format(l):
 				return (a_data["assistant"]["ses_azalt2"],"ses_azalt2",int(l))
 
 		return "Anlamadım."

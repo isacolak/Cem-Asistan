@@ -16,6 +16,7 @@ try:
 		db = assistant.db
 	except Exception as e:
 		print("Hata: ",e)
+		sys.exit()
 
 	
 	data = {}

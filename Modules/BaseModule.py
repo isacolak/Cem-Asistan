@@ -1,6 +1,8 @@
+import io
 import os
 import re
 import cv2
+import wave
 import time
 import math
 import json
@@ -8,16 +10,19 @@ import pickle
 import smtplib
 import requests
 import warnings
+import miniaudio
 #import webbrowser
 import numpy as np
 import firebase_admin
 from gtts import gTTS
+import soundfile as sf
+import sounddevice as sd
 from threading import Thread
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from comtypes import CLSCTX_ALL
-import speech_recognition as sr
 from playsound import playsound
+import speech_recognition as sr
 from ctypes import cast, POINTER
 from email.mime.text import MIMEText
 from firebase_admin import credentials, db
@@ -224,18 +229,28 @@ class ses:
 
 				file_req = requests.get(file_url,stream=True)
 
-				with open(file_name,"wb") as file:
-					
-					for i in file_req.iter_content():
-						file.write(i)
-					file.close()
+				src = miniaudio.decode(file_req.content, dither=miniaudio.DitherMode.TRIANGLE)
+
+				with io.BytesIO() as file:
+					wave_file = wave.open(file,"wb")
+					try:
+						wave_file.setnchannels(src.nchannels)
+						wave_file.setsampwidth(src.sample_width)
+						wave_file.setframerate(src.sample_rate)
+						wave_file.writeframes(src.samples.tobytes())
+						wave_data = file.getvalue()
+					finally:
+						wave_file.close()
+
+				data, fs = sf.read(io.BytesIO(wave_data))
+
+				sd.play(data, fs)
+				status = sd.wait()
+
 			else:
 				raise Exception("TTS Kullanım Sınırına Ulaşıldı!")
 		else:
 			raise Exception("TTS Sunucusuna Erişilemedi!")
-			
-
-		self.sesOynat(file_name)
 
 	def tts2(self,text):
 		os.system("python Modules/tts.py "+text)
