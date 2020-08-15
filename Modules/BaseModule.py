@@ -1,6 +1,7 @@
 import io
 import os
 import re
+from . import gsr
 import cv2
 import wave
 import time
@@ -255,7 +256,7 @@ class ses:
 	def tts2(self,text):
 		os.system("python Modules/tts.py "+text)
 
-	def stt(self,lang='tr-Tr'): 
+	def stt2(self,lang='tr-Tr'): 
 		r = sr.Recognizer()
 		with sr.Microphone() as source:
 			print("\nDinleniyor...")
@@ -270,7 +271,20 @@ class ses:
 		except Exception as e:
 			print(e)
 			print("Lütfen Tekrarla...")
-			return "None"
+			query = "None"
+		return query
+
+	def stt(self, lang="tr-Tr"):
+		print("Dinleniyor...\n")
+		audio = gsr.listen()
+		print("Tanımlanıyor...\n")
+		try:
+			query = gsr.recognize(audio)
+			print("Şunu Söyledin:",query,"\n")
+		except Exception as e:
+			print(e)
+			print("Lütfen Tekrarla...\n")
+			query = "None"
 		return query
 
 class hatırlatıcı1:
