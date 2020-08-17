@@ -26,37 +26,3 @@ data, fs = sf.read(io.BytesIO(wave_data))
 
 sd.play(data, fs)
 sd.wait()
-
-# import pyaudio 
-
-# #define stream chunk   
-# chunk = 1024  
-
-# #instantiate PyAudio  
-# p = pyaudio.PyAudio()  
-# #open stream  
-	
-
-# with io.BytesIO(wave_data) as file:
-# 	f = wave.open(file,"rb")
-# 	try:
-# 		stream = p.open(format = p.get_format_from_width(f.getsampwidth()),  
-# 	                channels = f.getnchannels(),  
-# 	                rate = f.getframerate(),  
-# 	                output = True)  
-# 		#read data  
-# 		data = f.readframes(chunk)  
-
-# 		#play stream  
-# 		while data:  
-# 		    stream.write(data)  
-# 		    data = f.readframes(chunk)  
-
-# 		#stop stream  
-# 		stream.stop_stream()  
-# 		stream.close()  
-
-# 		#close PyAudio  
-# 		p.terminate()  
-# 	finally:
-# 		f.close()

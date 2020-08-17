@@ -1,7 +1,6 @@
 import io
 import os
 import re
-from . import gsr
 import cv2
 import wave
 import time
@@ -12,6 +11,7 @@ import smtplib
 import requests
 import warnings
 import miniaudio
+from . import gsr
 #import webbrowser
 import numpy as np
 import firebase_admin
@@ -246,7 +246,7 @@ class ses:
 				data, fs = sf.read(io.BytesIO(wave_data))
 
 				sd.play(data, fs)
-				status = sd.wait()
+				sd.wait()
 
 			else:
 				raise Exception("TTS Kullanım Sınırına Ulaşıldı!")

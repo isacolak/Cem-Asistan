@@ -162,7 +162,7 @@ try:
 
 					reminder_list.sort(reverse=True)
 
-					self.return_a_w_msg(query, text)
+					self.return_a_w_msg(query, text, th=False)
 
 					for r in reminder_list:
 						self.return_a_w_msg3(r)
@@ -348,10 +348,10 @@ try:
 
 			
 
-		def return_a_w_msg(self,query,text):
+		def return_a_w_msg(self,query,text,th=True):
 			def say(text):
 				ses.tts(text)
-			
+
 			if query == "none":
 				text = "Ses Tanıma Hatası"
 
@@ -360,35 +360,45 @@ try:
 			else:
 				self.ui.textEdit.append('<br><span style="color:#0000FF">Sen</span> ==> '+query+'<br><span style="color:#0000FF">Asistan</span> ==> '+text)
 			
-			th = Thread(target=say,args=(text,))
-			th.daemon = True
-			th.start()
+			if th:
+				th = Thread(target=say,args=(text,))
+				th.daemon = True
+				th.start()
+			else:
+				say(text)
 
-		def return_a_w_msg2(self,query):
+		def return_a_w_msg2(self,query,th=True):
 			def say(text):
 				ses.tts(text)
 
 			if query == "none":
 				text = "Ses Tanıma Hatası"
 				self.ui.textEdit.append('<br><span style="color:#0000FF">Asistan</span> ==> '+text)
-				th = Thread(target=say,args=(text,))
-				th.daemon = True
-				th.start()
+
+				if th:
+					th = Thread(target=say,args=(text,))
+					th.daemon = True
+					th.start()
+				else:
+					say(text)
 
 			else:
 				self.ui.textEdit.append('<br><span style="color:#0000FF">Sen</span> ==> '+query)
 
 			
 
-		def return_a_w_msg3(self,text):
+		def return_a_w_msg3(self,text,th=True):
 			def say(text):
 				ses.tts(text)
 
 			self.ui.textEdit.append('<span style="color:#0000FF">Asistan</span> ==> '+text)
 
-			th = Thread(target=say,args=(text,))
-			th.daemon = True
-			th.start()
+			if th:
+				th = Thread(target=say,args=(text,))
+				th.daemon = True
+				th.start()
+			else:
+				say(text)
 
 		def return_a(self,text):
 			ses.tts(text)
