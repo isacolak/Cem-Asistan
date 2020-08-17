@@ -18,6 +18,7 @@ import firebase_admin
 from gtts import gTTS
 import soundfile as sf
 import sounddevice as sd
+from .io_tts import io_TTS
 from threading import Thread
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -210,48 +211,11 @@ class ses:
 		self.sesOynat(file_name)
 
 	def tts(self,text):
-		file_name = "Datas/sounds/temp"+str(self.s)+".mp3"
-		self.s += 1
-
-		base = "https://freetts.com"
-		url = "https://freetts.com/Home/PlayAudio?Language=tr-TR&Voice=tr-TR-Standard-B&TextMessage="+text+"&id=undefined&type=0"
-
-		req = requests.get(url)
-
-		if req.status_code == 200:
-
-			soup = BeautifulSoup(req.text,"html.parser")
-
-			if soup.find_all("audio")[0].source["src"]:
-
-				audio_src = soup.find_all("audio")[0].source["src"]
-
-				file_url = base+audio_src
-
-				file_req = requests.get(file_url,stream=True)
-
-				src = miniaudio.decode(file_req.content, dither=miniaudio.DitherMode.TRIANGLE)
-
-				with io.BytesIO() as file:
-					wave_file = wave.open(file,"wb")
-					try:
-						wave_file.setnchannels(src.nchannels)
-						wave_file.setsampwidth(src.sample_width)
-						wave_file.setframerate(src.sample_rate)
-						wave_file.writeframes(src.samples.tobytes())
-						wave_data = file.getvalue()
-					finally:
-						wave_file.close()
-
-				data, fs = sf.read(io.BytesIO(wave_data))
-
-				sd.play(data, fs)
-				sd.wait()
-
-			else:
-				raise Exception("TTS Kullanım Sınırına Ulaşıldı!")
-		else:
-			raise Exception("TTS Sunucusuna Erişilemedi!")
+		try:
+			io_tts = io_TTS(text)
+			io_tts.play_without_save()
+		except Exception as e:
+			print("Hata: ",e)
 
 	def tts2(self,text):
 		os.system("python Modules/tts.py "+text)
