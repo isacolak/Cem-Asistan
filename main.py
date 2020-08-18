@@ -9,11 +9,13 @@ try:
 	from threading import Thread
 	from PyQt5 import QtMultimedia
 	from assistant import Assistant
+	from Modules.BaseModule import ses, web, data_base
 
 	try:
 		assistant = Assistant()
-		ses = assistant.ses
-		db = assistant.db
+		ses = ses()
+		db = data_base().db
+		web = web()
 	except Exception as e:
 		print("Hata: ",e)
 		sys.exit()
@@ -144,6 +146,7 @@ try:
 			self.win_assistant(query,w=True)
 
 		def win_assistant(self,query,w=False):
+			web.close()
 
 			text, i, ii = None, None, None
 
@@ -172,67 +175,68 @@ try:
 
 				elif i == "google_ac":
 					self.return_a_w_msg(query, text)
-					assistant.web.open_google()
+					web.open_google()
 
 				elif i == "google_kapa":
 					self.return_a_w_msg(query, text)
-					assistant.web.close()
+					web.close()
 
 				elif i == "youtube_ac":
 					self.return_a_w_msg(query, text)
-					assistant.web.open_youtube()
+					web.open_youtube()
 
 				elif i == "youtube_kapa":
 					self.return_a_w_msg(query, text)
-					assistant.web.close()
+					web.close()
 
 				elif i == "ses_seviyesi":
-					self.return_a_w_msg(query, text.format(ii[0],ii[1]))
+					r = ses.currentVolume()
+					self.return_a_w_msg(query, text.format(r[0],r[1]))
 
 				elif i == "ses_ayar":
-					r = self.ses.setVolume(ii)
+					r = ses.setVolume(ii)
 					if r:
 						self.return_a_w_msg(query, text.format(ii))
 					else:
 						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 
 				elif i == "ses_arttır2":
-					r = self.ses.volumeUp(ii)
+					r = ses.volumeUp(ii)
 					if r:
 						self.return_a_w_msg(query, text.format(ii))
 					else:
 						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 
 				elif i == "ses_azalt2":
-					r = self.ses.volumeDOWN(ii)
+					r = ses.volumeDOWN(ii)
 					if r:
 						self.return_a_w_msg(query, text.format(ii))
 					else:
 						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 
 				elif i == "ses_arttır":
-					r = self.ses.volumeUP(5)
+					r = ses.volumeUP(5)
 					if r:
 						self.return_a_w_msg(query, text)
 					else:
 						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 
 				elif i == "ses_azalt":
-					r = self.ses.volumeDOWN(5)
+					r = ses.volumeDOWN(5)
 					if r:
 						self.return_a_w_msg(query, text)
 					else:
 						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 
 				elif i == "ses_kapat":
-					r = self.ses.volumeSetMute(True)
+					r = ses.volumeSetMute(True)
 					if r:
 						self.return_a_w_msg(query, text)
 					else:
 						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 
 				elif i == "ses_aç":
-					r = self.ses.volumeSetMute(False)
+					r = ses.volumeSetMute(False)
 					if r:
 						self.return_a_w_msg(query, text)
 					else:
@@ -252,7 +256,7 @@ try:
 					self.return_a("Lütfen e-postanın konusunu söylermisin.")
 
 					while True:
-						subj = self.ses.stt()
+						subj = ses.stt()
 						if subj != "None":
 							break
 						else:
@@ -277,67 +281,67 @@ try:
 
 				elif i == "google_ac":
 					self.return_a(text)
-					assistant.web.open_google()
+					web.open_google()
 
 				elif i == "google_kapa":
 					self.return_a(text)
-					assistant.web.close()
+					web.close()
 
 				elif i == "youtube_ac":
 					self.return_a(text)
-					assistant.web.open_youtube()
+					web.open_youtube()
 
 				elif i == "youtube_kapa":
 					self.return_a(text)
-					assistant.web.close()
+					web.close()
 
 				elif i == "ses_seviyesi":
 					self.return_a(text.format(ii[0],ii[1]))
 
 				elif i == "ses_ayar":
-					r = self.ses.setVolume(ii)
+					r = ses.setVolume(ii)
 					if r:
 						self.return_a(text.format(ii))
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
 				elif i == "ses_arttır2":
-					r = self.ses.volumeUp(ii)
+					r = ses.volumeUp(ii)
 					if r:
 						self.return_a(text.format(ii))
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
 				elif i == "ses_azalt2":
-					r = self.ses.volumeDOWN(ii)
+					r = ses.volumeDOWN(ii)
 					if r:
 						self.return_a(text.format(ii))
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
 				elif i == "ses_arttır":
-					r = self.ses.volumeUP(5)
+					r = ses.volumeUP(5)
 					if r:
 						self.return_a(text)
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
 				elif i == "ses_azalt":
-					r = self.ses.volumeDOWN(5)
+					r = ses.volumeDOWN(5)
 					if r:
 						self.return_a(text)
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
 				elif i == "ses_kapat":
-					r = self.ses.volumeSetMute(True)
+					r = ses.volumeSetMute(True)
 					if r:
 						self.return_a(text)
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
 				elif i == "ses_aç":
-					r = self.ses.volumeSetMute(False)
+					r = ses.volumeSetMute(False)
 					if r:
 						self.return_a(text)
 					else:

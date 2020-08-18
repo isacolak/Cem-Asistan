@@ -1,7 +1,7 @@
 import io
 import os
 import re
-import cv2
+# import cv2
 import wave
 import time
 import math
@@ -12,7 +12,7 @@ import requests
 import warnings
 import miniaudio
 from . import gsr
-#import webbrowser
+# import webbrowser
 import numpy as np
 import firebase_admin
 from gtts import gTTS
@@ -46,17 +46,6 @@ iinfo = info()
 
 def remove_file(path):
 	os.remove(path)
-
-def start():
-	dir_name = "Datas/sounds/"
-	s = 0
-	for i in os.listdir(dir_name):
-		th = Thread(target=remove_file,args=(dir_name+i,))
-		th.daemon = True
-		th.start()
-		s += 1
-
-start()
 
 class hava:
 	def __init__(self):
@@ -429,51 +418,51 @@ class data_base:
 
 		self.db = db
 
-class FaceRecognition:
-	def __init__(self):
+# class FaceRecognition:
+# 	def __init__(self):
 
-		self.tani = cv2.face.LBPHFaceRecognizer_create()
-		self.tani.read("Datas/face_recognition/datas/trainer.yml")
+# 		self.tani = cv2.face.LBPHFaceRecognizer_create()
+# 		self.tani.read("Datas/face_recognition/datas/trainer.yml")
 
-		self.faceCascade = cv2.CascadeClassifier("Datas/face_recognition/datas/cascades/haarcascade_frontalface_default.xml")
+# 		self.faceCascade = cv2.CascadeClassifier("Datas/face_recognition/datas/cascades/haarcascade_frontalface_default.xml")
 
-		self.idd = 0
+# 		self.idd = 0
 
-		self.dictionary = {}
+# 		self.dictionary = {}
 
-		self.names = []
+# 		self.names = []
 
-		dosya = open("Datas/face_recognition/datas/ids.json")
+# 		dosya = open("Datas/face_recognition/datas/ids.json")
 
-		self.dictionary = json.load(dosya)
+# 		self.dictionary = json.load(dosya)
 
-		for key,value in self.dictionary.items():
-			self.names.append(key)
+# 		for key,value in self.dictionary.items():
+# 			self.names.append(key)
 
-		self.on = True
+# 		self.on = True
 
-	def start(self):
-		self.cam = cv2.VideoCapture(0)
+# 	def start(self):
+# 		self.cam = cv2.VideoCapture(0)
 		
-		while self.on:
-			ret,cerceve = self.cam.read()
-			cerceve = cv2.flip(cerceve, 1)
-			gri = cv2.cvtColor(cerceve, cv2.COLOR_BGR2GRAY)
+# 		while self.on:
+# 			ret,cerceve = self.cam.read()
+# 			cerceve = cv2.flip(cerceve, 1)
+# 			gri = cv2.cvtColor(cerceve, cv2.COLOR_BGR2GRAY)
 
-			faces = self.faceCascade.detectMultiScale(gri,scaleFactor=1.5,minNeighbors=5)
+# 			faces = self.faceCascade.detectMultiScale(gri,scaleFactor=1.5,minNeighbors=5)
 
-			for (x,y,w,h) in faces:
-				cv2.rectangle(cerceve, (x,y), (x+w,y+h), (0,255,0),2)
-				self.idd,self.oran = self.tani.predict(gri[y:y+h,x:x+w])
+# 			for (x,y,w,h) in faces:
+# 				cv2.rectangle(cerceve, (x,y), (x+w,y+h), (0,255,0),2)
+# 				self.idd,self.oran = self.tani.predict(gri[y:y+h,x:x+w])
 
-				if (self.oran >= 50):
-					self.idd = self.names[self.idd]
-					self.on = False
-					self.cam.release()
-					print(self.idd)
-					self.result = self.idd
-				else:
-					self.idd = "Bilinmiyor"
+# 				if (self.oran >= 50):
+# 					self.idd = self.names[self.idd]
+# 					self.on = False
+# 					self.cam.release()
+# 					print(self.idd)
+# 					self.result = self.idd
+# 				else:
+# 					self.idd = "Bilinmiyor"
 
 class web2:
 	def __init__(self):

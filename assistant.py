@@ -6,7 +6,7 @@ try:
 	from random import choice
 	from threading import Thread
 	from datetime import date,datetime
-	from Modules.BaseModule import ses, hava, reminders, mail, doviz, data_base, FaceRecognition, web
+	from Modules.BaseModule import hava, reminders, mail, doviz # , data_base, FaceRecognition, web
 
 except ImportError as e:
 	print(e)
@@ -15,35 +15,19 @@ except ImportError as e:
 class Assistant:
 	def __init__(self):
 		super().__init__()
-
-		self.start()
-
-		self.ses = ses()
 		self.hava = hava()
 		self.hatirlatici = reminders()
 		self.mail = mail()
 		self.doviz = doviz()
-		self.db = data_base().db
-		self.face_recognition = FaceRecognition()
-		self.web = web()
+		# self.db = data_base().db
+		# self.face_recognition = FaceRecognition()
+		# self.web = web()
 
-		self.haftaGün = {'1':'Pazartesi','2':'Salı','3':'Çarşamba','4':'Perşembe','5':'Cuma','6':'Cumartesi','7':'Pazar'}
+		self.haftaGun = {'1':'Pazartesi','2':'Salı','3':'Çarşamba','4':'Perşembe','5':'Cuma','6':'Cumartesi','7':'Pazar'}
 		self.yılAy = {'01':'Ocak','02':'Şubat','03':'Mart','04':'Nisan','05':'Mayıs','06':'Haziran','07':'Temmuz','08':'Ağustos','09':'Eylül','10':'Ekim','11':'Kasım','12':'Aralık'}
 
-		self.dayToGün = {"Mon":"Pazartesi","Tue":"Salı","Wed":"Çarşamba","Thu":"Perşembe","Fri":"Cuma","Sat":"Cumartesi","Sun":"Pazar"}
+		self.dayToGun = {"Mon":"Pazartesi","Tue":"Salı","Wed":"Çarşamba","Thu":"Perşembe","Fri":"Cuma","Sat":"Cumartesi","Sun":"Pazar"}
 		self.monToAy = {"Jan":"Ocak","Feb":"Şubat","Mar":"Mart","Apr":"Nisa","May":"Mayıs","Jun":"Haziran","Jul":"Temmuz","Aug":"Ağustos","Sep":"Eylül","Oct":"Ekim","Nov":"Kasım","Dec":"Aralık"}
-
-	def remove_file(self,path):
-		os.remove(path)
-
-	def start(self):
-		dir_name = "Datas/sounds/"
-		s = 0
-		for i in os.listdir(dir_name):
-			th = Thread(target=self.remove_file,args=(dir_name+i,))
-			th.daemon = True
-			th.start()
-			s += 1
 
 	def info(self):
 		return json.load(open('Datas/info.json','r',encoding="utf-8"))
@@ -52,7 +36,6 @@ class Assistant:
 		return json.load(open("Datas/a_data.json","r",encoding="utf-8"))
 
 	def get_result(self,query):
-		self.web.close()
 
 		a_data = self.a_data()
 
@@ -67,7 +50,7 @@ class Assistant:
 					return (a_data["assistant"][i].format(time.strftime("%H:%M")),i)
 						
 				elif i == "tarih":
-					return (a_data["assistant"][i].format(time.strftime("%d"),self.yılAy[time.strftime("%m")],self.haftaGün[time.strftime("%w")]),i)
+					return (a_data["assistant"][i].format(time.strftime("%d"),self.yılAy[time.strftime("%m")],self.haftaGun[time.strftime("%w")]),i)
 						
 				elif i == "durum":
 					return (choice(a_data["assistant"][i]),i)
@@ -82,7 +65,7 @@ class Assistant:
 					return (a_data["assistant"][i].format(time.strftime("%Y")),i)
 							
 				elif i == "gun2":
-					return (a_data["assistant"][i].format(self.haftaGün[time.strftime("%w")]),i)
+					return (a_data["assistant"][i].format(self.haftaGun[time.strftime("%w")]),i)
 							
 				elif i == "hava":
 					il,ilce,havad = self.hava.havaD()
@@ -110,8 +93,7 @@ class Assistant:
 					return (a_data["assistant"][i],i)
 
 				elif i == "ses_seviyesi":
-					r = self.ses.currentVolume()
-					return (a_data["assistant"][i],i,r)
+					return (a_data["assistant"][i],i)
 						
 				elif i == "google_ac":
 					return ("Google açılıyor",i)
@@ -139,30 +121,30 @@ class Assistant:
 					for d in reminders:
 						g,a,y = d.split(".")
 						sp = date(int(y),int(a),int(g)).ctime().split(" ")
-						g2 = self.dayToGün[sp[0]]
+						g2 = self.dayToGun[sp[0]]
 						a2 = self.monToAy[sp[1]]
 
 						if date(int(y),int(a),int(g)).isocalendar()[1] == datetime.now().isocalendar()[1]:
 							for t in reminders[d]:
-								reminder_list.append(self.haftaGün[str(date(int(y),int(a),int(g)).isocalendar()[2])]+", "+t+", "+reminders[d][t])
+								reminder_list.append(self.haftaGun[str(date(int(y),int(a),int(g)).isocalendar()[2])]+", "+t+", "+reminders[d][t])
 						else:
 							for t in reminders[d]:
 								reminder_list.append(d+", "+t+", "+reminders[d][t])
 
 					return ("Toplam "+str(reminders_count)+" tane hatırlatıcı bulunuyor.",i,reminder_list)
 
-				elif i == "h_oluş":
-					return ("Lütfen hatırlatıcının tarihini söylermisin. Örneğin 20 Mart saat 11:25 balo.",i)
+				# elif i == "h_oluş":
+				# 	return ("Lütfen hatırlatıcının tarihini söylermisin. Örneğin 20 Mart saat 11:25 balo.",i)
 								
-					while True:
-						r_data =  self.ses.stt()
+				# 	while True:
+				# 		r_data =  self.ses.stt()
 
-						if r_data != "None":
-							break
-						else:
-							return ("self.Ses tanıma hatası. Lütfen tekrar söylermisin.",i)
+				# 		if r_data != "None":
+				# 			break
+				# 		else:
+				# 			return ("self.Ses tanıma hatası. Lütfen tekrar söylermisin.",i)
 
-					print(r_data)
+				# 	print(r_data)
 
 
 		for s in a_data["user"]["m_g"]:
