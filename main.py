@@ -242,6 +242,11 @@ try:
 					else:
 						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 
+				elif i == "kapi_son_kilit":
+					last_lock_date = data["door_lock"]["last_lock_date"].replace("\"","")
+
+					self.return_a_w_msg(query, text.format(last_lock_date))
+
 				else:
 					self.return_a_w_msg(query, text)
 			else:
@@ -420,7 +425,7 @@ try:
 				upload_data(data)
 			elif data["lamp"]["status"] == "false":
 				data["lamp"]["status"] = "true"
-				data["lamp"]["last_work"] = time.strftime("%d.%m.%Y %H:%M")
+				data["lamp"]["last_work"] = "\""+time.strftime("%d.%m.%Y %H:%M")+"\""
 				self.ui.lampB.setIcon(icon_on)
 				upload_data(data)
 
@@ -437,7 +442,7 @@ try:
 				upload_data(data)
 			elif data["fan"]["status"] == "false":
 				data["fan"]["status"] = "true"
-				data["fan"]["last_work"] = time.strftime("%d.%m.%Y %H:%M")
+				data["fan"]["last_work"] = "\""+time.strftime("%d.%m.%Y %H:%M")+"\""
 				self.ui.fanB.setIcon(icon_on)
 				upload_data(data)
 
@@ -454,7 +459,7 @@ try:
 				upload_data(data)
 			elif data["door_lock"]["status"] == "false":
 				data["door_lock"]["status"] = "true"
-				data["door_lock"]["last_lock_date"] = time.strftime("%d.%m.%Y %H:%M")
+				data["door_lock"]["last_lock_date"] = "\""+time.strftime("%d.%m.%Y %H:%M")+"\""
 				self.ui.doorB.setIcon(icon_on)
 				upload_data(data)
 

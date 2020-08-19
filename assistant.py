@@ -106,6 +106,9 @@ class Assistant:
 						
 				elif i == "youtube_kapa":
 					return ("Youtube kapatılıyor",i)
+
+				elif i == "kapi_son_kilit":
+					return (a_data["assistant"]["kapi_son_kilit"],i)
 						
 				elif i == "h_lar_oku":
 

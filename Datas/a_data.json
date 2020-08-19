@@ -28,10 +28,13 @@
 		"doviz" : ["döviz","döviz kuru","kur","tl kur","tl kuru","döviz","döviz kuru"],
 		"lamba_ac": ["ışığını aç","ışığını yak","lambasını aç","lambasını yak"],
 		"lamba_kapat" : ["ışığını kapat","ışığını söndür","lambasını kapat","lambasını söndür"],
+		"lamba_son_calisma" : ["lamba son çalışma","lamba son çalışma zamanı"],
 		"fan_ac" : ["fan aç","fanı aç","fan çalıştır","fanı çalıştır","fan aktif et","fan aktifet","fanı aktif et","fanı aktif et"],
 		"fan_kapat" : ["fan kapat","fanı kapat","fan durdur","fanı durdur"],
+		"fan_son_calisma" : ["fan son çalışma","fan son çalışma zamanı"],
 		"kapi_kilit_ac" : ["kapı kilitle","kapıyı kilitle","kapı kilidini aktif et","kapı kilidini aktifet","kapı kilidini devreye sok"],
 		"kapi_kilit_kapat" : ["kapı aç","kapıyı aç","kapı kilidini durdur","kapı kilidini kapat","kapı kilidini devreden çıkar","kapı kilidini devre dışı bırak "],
+		"kapi_son_kilit" : ["kapı son kilit tarihi","kapı son kilitlenme tarihi"],
 		"google_ac" : ["google aç","google'ı aç"],
 		"google_kapa" : ["google kapa","google'ı kapa","google'ı kapat"],
 		"youtube_ac" : ["youtube aç","youtube'u aç"],
@@ -68,6 +71,7 @@
 		"ses_kapat" : ["Ses kapatıldı.","Ses susturuldu."],
 		"ses_aç" : "Ses açıldı.",
 		"ses_seviyesi" : "Ses {}, ses seviyesi {}.",
-		"ses_ayar" : "Ses seviyesi {} olarak ayarlandı."
+		"ses_ayar" : "Ses seviyesi {} olarak ayarlandı.",
+		"kapi_son_kilit" : "Kapı en son {} tarihinde kilitlendi."
 	}
 }
