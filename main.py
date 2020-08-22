@@ -9,12 +9,12 @@ try:
 	from threading import Thread
 	from PyQt5 import QtMultimedia
 	from assistant import Assistant
-	from Modules.BaseModule import ses, web, data_base
+	from Modules.BaseModule import ses, web
 
 	try:
 		assistant = Assistant()
 		ses = ses()
-		db = data_base().db
+		db = assistant.db
 		web = web()
 	except Exception as e:
 		print("Hata: ",e)
@@ -150,7 +150,7 @@ try:
 
 			text, i, ii = None, None, None
 
-			result = assistant.get_result(query)
+			result = assistant.get_result(query.lower())
 
 			if isinstance(result,tuple) and len(result) == 3:
 				text, i, ii = result
@@ -159,204 +159,220 @@ try:
 			elif isinstance(result,str):
 				text = result
 
-			if w and i != "h_oluş" and i != "m_g":
-				if i == "h_lar_oku":
-					reminder_list = ii
+			if i == "h_lar_oku":
+				reminder_list = ii
 
-					reminder_list.sort(reverse=True)
+				reminder_list.sort(reverse=True)
 
+				if w:
 					self.return_a_w_msg(query, text, th=False)
-
-					for r in reminder_list:
-						self.return_a_w_msg3(r)
-
-				elif i == "durumD":
-					self.return_a_w_msg2(query)
-
-				elif i == "google_ac":
-					self.return_a_w_msg(query, text)
-					web.open_google()
-
-				elif i == "google_kapa":
-					self.return_a_w_msg(query, text)
-					web.close()
-
-				elif i == "youtube_ac":
-					self.return_a_w_msg(query, text)
-					web.open_youtube()
-
-				elif i == "youtube_kapa":
-					self.return_a_w_msg(query, text)
-					web.close()
-
-				elif i == "ses_seviyesi":
-					r = ses.currentVolume()
-					self.return_a_w_msg(query, text.format(r[0],r[1]))
-
-				elif i == "ses_ayar":
-					r = ses.setVolume(ii)
-					if r:
-						self.return_a_w_msg(query, text.format(ii))
-					else:
-						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
-
-				elif i == "ses_arttır2":
-					r = ses.volumeUp(ii)
-					if r:
-						self.return_a_w_msg(query, text.format(ii))
-					else:
-						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
-
-				elif i == "ses_azalt2":
-					r = ses.volumeDOWN(ii)
-					if r:
-						self.return_a_w_msg(query, text.format(ii))
-					else:
-						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
-
-				elif i == "ses_arttır":
-					r = ses.volumeUP(5)
-					if r:
-						self.return_a_w_msg(query, text)
-					else:
-						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
-
-				elif i == "ses_azalt":
-					r = ses.volumeDOWN(5)
-					if r:
-						self.return_a_w_msg(query, text)
-					else:
-						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
-
-				elif i == "ses_kapat":
-					r = ses.volumeSetMute(True)
-					if r:
-						self.return_a_w_msg(query, text)
-					else:
-						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
-
-				elif i == "ses_aç":
-					r = ses.volumeSetMute(False)
-					if r:
-						self.return_a_w_msg(query, text)
-					else:
-						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
-
-				elif i == "kapi_son_kilit":
-					last_lock_date = data["door_lock"]["last_lock_date"].replace("\"","")
-
-					self.return_a_w_msg(query, text.format(last_lock_date))
-
 				else:
-					self.return_a_w_msg(query, text)
-			else:
-				if i == "m_g":
-					while True:
-						con = self.ses.stt()
-						if con != "None":
-							break
-						else:
-							self.return_a("self.Ses tanıma hatası. Lütfen tekrar söylermisin.")
-
-					self.return_a("Lütfen e-postanın konusunu söylermisin.")
-
-					while True:
-						subj = ses.stt()
-						if subj != "None":
-							break
-						else:
-							self.return_a("self.Ses tanıma hatası. Lütfen tekrar söylermisin.")
-					try:
-						self.return_a(self.mail.mailG(to, con, subj))
-					except Exception as e:
-						self.return_a(e)
-
-				elif i == "h_lar_oku":
-					reminder_list = ii
-
-					reminder_list.sort(reverse=True)
-
 					self.return_a(text)
 
-					for r in reminder_list:
+				for r in reminder_list:
+					if w:
+						self.return_a_w_msg3(r)
+					else:
 						self.return_a(r)
 
-				elif i == "durumD":
-					pass
+			elif i == "durumD":
+				if w:
+					self.return_a_w_msg2(query)
 
-				elif i == "google_ac":
+			elif i == "google_ac":
+				if w:
+					self.return_a_w_msg(query, text)
+				else:
 					self.return_a(text)
-					web.open_google()
+				web.open_google()
 
-				elif i == "google_kapa":
+			elif i == "google_kapa":
+				if w:
+					self.return_a_w_msg(query, text)
+				else:
 					self.return_a(text)
-					web.close()
+				web.close()
 
-				elif i == "youtube_ac":
+			elif i == "youtube_ac":
+				if w:
+					self.return_a_w_msg(query, text)
+				else:
 					self.return_a(text)
-					web.open_youtube()
+				web.open_youtube()
 
-				elif i == "youtube_kapa":
+			elif i == "youtube_kapa":
+				if w:
+					self.return_a_w_msg(query, text)
+				else:
 					self.return_a(text)
-					web.close()
+				web.close()
 
-				elif i == "ses_seviyesi":
-					self.return_a(text.format(ii[0],ii[1]))
+			elif i == "ses_seviyesi":
+				r = ses.currentVolume()
+				if r[1] == 0:
+					status = "açık"
+				elif r[1] == 1:
+					status = "kapalı"
+				if w:
+					self.return_a_w_msg(query, text.format(r[0],status))
+				else:
+					self.return_a(text.format(r[0],r[1]))
 
-				elif i == "ses_ayar":
-					r = ses.setVolume(ii)
-					if r:
+			elif i == "ses_ayar":
+				r = ses.setVolume(ii)
+				if r:
+					if w:
+						self.return_a_w_msg(query, text.format(ii))
+					else:
 						self.return_a(text.format(ii))
+				else:
+					if w:
+						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
-				elif i == "ses_arttır2":
-					r = ses.volumeUp(ii)
-					if r:
+			elif i == "ses_arttır2":
+				r = ses.volumeUp(ii)
+				if r:
+					if w:
+						self.return_a_w_msg(query, text.format(ii))
+					else:
 						self.return_a(text.format(ii))
+				else:
+					if w:
+						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
-				elif i == "ses_azalt2":
-					r = ses.volumeDOWN(ii)
-					if r:
+			elif i == "ses_azalt2":
+				r = ses.volumeDOWN(ii)
+				if r:
+					if w:
+						self.return_a_w_msg(query, text.format(ii))
+					else:
 						self.return_a(text.format(ii))
+				else:
+					if w:
+						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
-				elif i == "ses_arttır":
-					r = ses.volumeUP(5)
-					if r:
+			elif i == "ses_arttır":
+				r = ses.volumeUP(5)
+				if r:
+					if w:
+						self.return_a_w_msg(query, text)
+					else:
 						self.return_a(text)
+				else:
+					if w:
+						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
-				elif i == "ses_azalt":
-					r = ses.volumeDOWN(5)
-					if r:
+			elif i == "ses_azalt":
+				r = ses.volumeDOWN(5)
+				if r:
+					if w:
+						self.return_a_w_msg(query, text)
+					else:
 						self.return_a(text)
+				else:
+					if w:
+						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
-				elif i == "ses_kapat":
-					r = ses.volumeSetMute(True)
-					if r:
+			elif i == "ses_kapat":
+				r = ses.volumeSetMute(True)
+				if r:
+					if w:
+						self.return_a_w_msg(query, text)
+					else:
 						self.return_a(text)
+				else:
+					if w:
+						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
-				elif i == "ses_aç":
-					r = ses.volumeSetMute(False)
-					if r:
+			elif i == "ses_aç":
+				r = ses.volumeSetMute(False)
+				if r:
+					if w:
+						self.return_a_w_msg(query, text)
+					else:
 						self.return_a(text)
+				else:
+					if w:
+						self.return_a_w_msg(query, "Malesef bir hata oluştu!")
 					else:
 						self.return_a("Malesef bir hata oluştu!")
 
+			elif i == "kapi_son_kilit":
+				last_lock_date = data["door_lock"]["last_lock_date"].replace("\"","")
+
+				if w:
+					self.return_a_w_msg(query, text.format(last_lock_date))
+				else:
+					self.return_a(text.format(last_lock_date))
+
+			elif i == "selam_ver":
+				query2 = query.split()
+				del query2[-2:]
+
+				for g in query2:
+					gg = g.split("'")
+					if len(gg) > 1:
+						query2[query2.index(g)] = "".join(gg[0])
+
+					elif "abla" in g:
+						del query2[query2.index(g)]
+
+					elif "abi" in g:
+						del query2[query2.index(g)]
+
+					elif g.lower() == "anneme":
+						query2[query2.index(g)] = "Sevgül"
+
+					elif g.lower() == "babama":
+						query2[query2.index(g)] = "Cevdet"
+
+				query2 = " ".join(query2)
+
+				if w:
+					self.return_a_w_msg(query, text.format(query2))
+				else:
+					self.return_a(text.format(query2))
+
+			elif i == "m_g" and not w:
+				while True:
+					con = self.ses.stt()
+					if con != "None":
+						break
+					else:
+						self.return_a("Ses tanıma hatası. Lütfen tekrar söylermisin.")
+
+				self.return_a("Lütfen e-postanın konusunu söylermisin.")
+
+				while True:
+					subj = ses.stt()
+					if subj != "None":
+						break
+					else:
+						self.return_a("self.Ses tanıma hatası. Lütfen tekrar söylermisin.")
+				try:
+					self.return_a(self.mail.mailG(to, con, subj))
+				except Exception as e:
+					self.return_a(e)
+
+			else:
+				if w:
+					self.return_a_w_msg(query, text)
 				else:
 					self.return_a(text)
 
 			
-
 		def return_a_w_msg(self,query,text,th=True):
 			def say(text):
 				ses.tts(text)
@@ -637,7 +653,7 @@ try:
 				query = ses.stt().lower()
 				if query in a_data["user"]["asistan_ac"]:
 					win.return_a(choice(a_data["assistant"]["asistan_ac"]))
-					query = ses.stt().lower()
+					query = ses.stt()
 					win.win_assistant(query)
 				elif query != "cem" and "cem" in query:
 					query = re.search("cem (.+)", query)
@@ -645,7 +661,7 @@ try:
 						win.win_assistant(query.group(1))
 					else:
 						win.return_a(choice(a_data["assistant"]["asistan_ac"]))
-						query = ses.stt().lower()
+						query = ses.stt()
 						win.win_assistant(query)
 
 

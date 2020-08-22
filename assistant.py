@@ -6,7 +6,7 @@ try:
 	from random import choice
 	from threading import Thread
 	from datetime import date,datetime
-	from Modules.BaseModule import hava, reminders, mail, doviz # , data_base, FaceRecognition, web
+	from Modules.BaseModule import hava, reminders, mail, doviz, data_base #, FaceRecognition, web
 
 except ImportError as e:
 	print(e)
@@ -19,7 +19,7 @@ class Assistant:
 		self.hatirlatici = reminders()
 		self.mail = mail()
 		self.doviz = doviz()
-		# self.db = data_base().db
+		self.db = data_base().db
 		# self.face_recognition = FaceRecognition()
 		# self.web = web()
 
@@ -289,12 +289,20 @@ class Assistant:
 
 		if len(s) == 4:
 			l = s[-2]
+			query2 = s
+			del query2[-2:]
+			query2 = " ".join(query2)
 
 			if query == a_data["user"]["ses_ayar"][0].format(l):
 				return (a_data["assistant"]["ses_ayar"],"ses_ayar",int(l))
+			elif query == a_data["user"]["selam_ver"][0].format(query2):
+				return (a_data["assistant"]["selam_ver"],"selam_ver")
 
 		elif len(s) == 3:
 			l = s[-2]
+			query2 = s
+			del query2[-2:]
+			query2 = " ".join(query2)
 
 			if query == a_data["user"]["ses_arttir2"][0].format(l):
 				return (a_data["assistant"]["ses_arttır2"],"ses_arttır2",int(l))
@@ -302,5 +310,7 @@ class Assistant:
 			elif query == a_data["user"]["ses_azalt2"][0].format(l):
 				return (a_data["assistant"]["ses_azalt2"],"ses_azalt2",int(l))
 
-		return "Anlamadım."
+			elif query == a_data["user"]["selam_ver"][0].format(query2):
+				return (a_data["assistant"]["selam_ver"],"selam_ver")
 
+		return "Anlamadım."

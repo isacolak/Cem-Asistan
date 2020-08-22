@@ -49,7 +49,8 @@
 		"ses_kapat" : ["sesi kapat","sesi sustur"],
 		"ses_aç" : ["sesi aç"],
 		"ses_seviyesi" : ["ses seviyesi","ses seviyesini göster"],
-		"ses_ayar" : ["ses seviyesini {} yap"]
+		"ses_ayar" : ["ses seviyesini {} yap"],
+		"selam_ver" : ["{} selam ver"]
 		},
 	"assistant":{
 		"geliştirici" : ["Benim geliştiricim İsa Çolak.","Geliştiricim İsa Çolak.","Beni İsa Çolak geliştirdi."],
@@ -70,8 +71,9 @@
 		"ses_azalt2" : "Ses {} azaltıldı.",
 		"ses_kapat" : ["Ses kapatıldı.","Ses susturuldu."],
 		"ses_aç" : "Ses açıldı.",
-		"ses_seviyesi" : "Ses {}, ses seviyesi {}.",
+		"ses_seviyesi" : "Ses seviyesi %{} ve {}.",
 		"ses_ayar" : "Ses seviyesi {} olarak ayarlandı.",
-		"kapi_son_kilit" : "Kapı en son {} tarihinde kilitlendi."
+		"kapi_son_kilit" : "Kapı en son {} tarihinde kilitlendi.",
+		"selam_ver" : "Selam {}."
 	}
 }
