@@ -4,6 +4,7 @@
 		"asistan_ac" : ["hey cem","cem"],
 		"durum" : ["nasılsın","naber","ne haber","napıyorsun","nasıl gidiyor","naber","napıyon","nabıyon"],
 		"durumD" : ["iyi ben de","iyi bende","iyilik","iyidir"],
+		"karsilamaD": ["merhaba","selam"],
 		"iltifat" : ["mükemmelsin","çok iyisin"],
 		"tesekkur" : ["teşekkürler","saol","cok saol","çok teşekkürler"],
 		"saat" : ["saat","saat kaç","kaçsaat","zaman"],
@@ -55,6 +56,7 @@
 	"assistant":{
 		"geliştirici" : ["Benim geliştiricim İsa Çolak.","Geliştiricim İsa Çolak.","Beni İsa Çolak geliştirdi."],
 		"asistan_ac": ["Efendim.","Merhaba.","Selam."],
+		"karsilama": ["Merhaba.","Selam."],
 		"saat":"Saat şuan {}.",
 		"tarih" : "Bu gün {} {} {}.",
 		"yil" : "{} Yılındayız.",

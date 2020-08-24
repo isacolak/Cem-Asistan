@@ -7,7 +7,7 @@ try:
 	from Modules.gui import *
 	from random import choice
 	from threading import Thread
-	from PyQt5 import QtMultimedia
+	from PyQt5 import QtMultimedia, QtWebEngineWidgets
 	from assistant import Assistant
 	from Modules.BaseModule import ses, web
 
@@ -19,7 +19,6 @@ try:
 	except Exception as e:
 		print("Hata: ",e)
 		sys.exit()
-
 	
 	data = {}
 	data1 = db.reference("/").get()
@@ -66,11 +65,11 @@ try:
 			self.ui.doorB.clicked.connect(self.doorF)
 			self.ui.msg.returnPressed.connect(self.msg_a)
 
-			self.up_key = QtWidgets.QShortcut(QtGui.QKeySequence("UP"), self)
-			self.up_key.activated.connect(self.up)
+			# self.up_key = QtWidgets.QShortcut(QtGui.QKeySequence("UP"), self)
+			# self.up_key.activated.connect(self.up)
 
-			self.down_key = QtWidgets.QShortcut(QtGui.QKeySequence("DOWN"), self)
-			self.down_key.activated.connect(self.down)
+			# self.down_key = QtWidgets.QShortcut(QtGui.QKeySequence("DOWN"), self)
+			# self.down_key.activated.connect(self.down)
 
 			self.on_stop = False
 
@@ -92,6 +91,14 @@ try:
 			self.ui.prevSB.clicked.connect(self.playlistPrev)
 			self.ui.nextSB.clicked.connect(self.playlistNext)
 			self.ui.slider.sliderMoved.connect(self.seekPosition)
+
+			self.ui.textEdit.hide()
+
+			self.ui.chat_view = QtWebEngineWidgets.QWebEngineView(self.ui.assistant)
+			self.ui.chat_view.setGeometry(QtCore.QRect(0, 0, 551, 390))
+			self.ui.chat_view.show()
+
+			self.karsila = True
 
 		def up(self):
 			print("up")
@@ -130,6 +137,11 @@ try:
 				self.ui.main_menu.hide()
 				self.ui.music_player.hide()
 				self.ui.assistant.show()
+				if self.karsila:
+					karsilama_cum = choice(a_data["assistant"]["karsilama"])
+					self.return_a_w_msg3(karsilama_cum)
+					self.karsila = False
+					self.karsila2 = True
 			elif item.text() == "Müzik Oynatıcı":
 				self.ui.sideBar.hide()
 				self.ui.logo.hide()
@@ -366,6 +378,11 @@ try:
 				except Exception as e:
 					self.return_a(e)
 
+			elif query.lower() in a_data["user"]["karsilamaD"] and self.karsila2:
+				self.karsila2 = False
+				if w:
+					self.return_a_w_msg2(query)
+
 			else:
 				if w:
 					self.return_a_w_msg(query, text)
@@ -380,11 +397,49 @@ try:
 			if query == "none":
 				text = "Ses Tanıma Hatası"
 
-				self.ui.textEdit.append('<br><span style="color:#0000FF">Asistan</span> ==> '+text+'')
+				#self.ui.textEdit.append('<br><span style="color:#0000FF">Asistan</span> ==> '+text+'')
 
+				if os.path.exists("Datas/chat_view.html"):
+					f = open("Datas/chat_view.html","rb")
+					base_html = f.read()
+					f.close()
+
+				else:
+					f = open("Datas/chat_view_base2.html","rb")
+					base_html = f.read()
+					f.close()
+
+				f = open("Datas/chat_view.html","wb")
+				f.write(base_html)
+				f.write(b'<div class="container"><img src="../Datas/icons/assistant.png" alt="Avatar" class="img_c"><p class="u1 chat">'+text.encode("latin5")+b'</p></div>')
+				f.write(b'<script>scrollWin(0,window.innerHeight);</script>')
+				f.close()
+				
 			else:
-				self.ui.textEdit.append('<br><span style="color:#0000FF">Sen</span> ==> '+query+'<br><span style="color:#0000FF">Asistan</span> ==> '+text)
-			
+				#self.ui.textEdit.append('<br><span style="color:#0000FF">Sen</span> ==> '+query+'<br><span style="color:#0000FF">Asistan</span> ==> '+text)
+
+				if os.path.exists("Datas/chat_view.html"):
+					f = open("Datas/chat_view.html","rb")
+					base_html = f.read()
+					f.close()
+
+				else:
+					f = open("Datas/chat_view_base2.html","rb")
+					base_html = f.read()
+					f.close()
+
+				f = open("Datas/chat_view.html","wb")
+				f.write(base_html)
+				f.write(b'<div class="container"><img src="../Datas/icons/user.png" alt="Avatar" class="img_c right"><p class="u2 chat">'+query.encode("latin5")+b'.</p></div>')
+				f.write(b'<div class="container"><img src="../Datas/icons/assistant.png" alt="Avatar" class="img_c"><p class="u1 chat">'+text.encode("latin5")+b'</p></div>')
+				f.write(b'<script>scrollWin(0,window.innerHeight);</script>')
+				f.close()
+
+			file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "Datas/chat_view.html")
+
+				
+			self.ui.chat_view.load(QtCore.QUrl.fromLocalFile(file))
+				
 			if th:
 				th = Thread(target=say,args=(text,))
 				th.daemon = True
@@ -398,7 +453,23 @@ try:
 
 			if query == "none":
 				text = "Ses Tanıma Hatası"
-				self.ui.textEdit.append('<br><span style="color:#0000FF">Asistan</span> ==> '+text)
+				#self.ui.textEdit.append('<br><span style="color:#0000FF">Asistan</span> ==> '+text)
+
+				if os.path.exists("Datas/chat_view.html"):
+					f = open("Datas/chat_view.html","rb")
+					base_html = f.read()
+					f.close()
+
+				else:
+					f = open("Datas/chat_view_base2.html","rb")
+					base_html = f.read()
+					f.close()
+
+				f = open("Datas/chat_view.html","wb")
+				f.write(base_html)
+				f.write(b'<div class="container"><img src="../Datas/icons/assistant.png" alt="Avatar" class="img_c"><p class="u1 chat">'+text.encode("latin5")+b'</p></div>')
+				f.write(b'<script>scrollWin(0,window.innerHeight);</script>')
+				f.close()
 
 				if th:
 					th = Thread(target=say,args=(text,))
@@ -408,7 +479,28 @@ try:
 					say(text)
 
 			else:
-				self.ui.textEdit.append('<br><span style="color:#0000FF">Sen</span> ==> '+query)
+				#self.ui.textEdit.append('<br><span style="color:#0000FF">Sen</span> ==> '+query)
+
+				if os.path.exists("Datas/chat_view.html"):
+					f = open("Datas/chat_view.html","rb")
+					base_html = f.read()
+					f.close()
+
+				else:
+					f = open("Datas/chat_view_base2.html","rb")
+					base_html = f.read()
+					f.close()
+
+				f = open("Datas/chat_view.html","wb")
+				f.write(base_html)
+				f.write(b'<div class="container"><img src="../Datas/icons/user.png" alt="Avatar" class="img_c right"><p class="u2 chat">'+query.encode("latin5")+b'.</p></div>')
+				f.write(b'<script>scrollWin(0,window.innerHeight);</script>')
+				f.close()
+
+			file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "Datas/chat_view.html")
+
+				
+			self.ui.chat_view.load(QtCore.QUrl.fromLocalFile(file))
 
 			
 
@@ -416,7 +508,28 @@ try:
 			def say(text):
 				ses.tts(text)
 
-			self.ui.textEdit.append('<span style="color:#0000FF">Asistan</span> ==> '+text)
+			#self.ui.textEdit.append('<span style="color:#0000FF">Asistan</span> ==> '+text)
+
+			if os.path.exists("Datas/chat_view.html"):
+					f = open("Datas/chat_view.html","rb")
+					base_html = f.read()
+					f.close()
+
+			else:
+				f = open("Datas/chat_view_base2.html","rb")
+				base_html = f.read()
+				f.close()
+
+			f = open("Datas/chat_view.html","wb")
+			f.write(base_html)
+			f.write(b'<div class="container"><img src="../Datas/icons/assistant.png" alt="Avatar" class="img_c"><p class="u1 chat">'+text.encode("latin5")+b'</p></div><div></div>')
+			f.write(b'<script>scrollWin(0,window.innerHeight);</script>')
+			f.close()
+
+			file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "Datas/chat_view.html")
+
+				
+			self.ui.chat_view.load(QtCore.QUrl.fromLocalFile(file))
 
 			if th:
 				th = Thread(target=say,args=(text,))

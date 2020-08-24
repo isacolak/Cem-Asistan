@@ -26,7 +26,7 @@
    <string>Reji Asistan</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="gui.qrc">
+   <iconset>
     <normaloff>:/icons/Datas/icons/logo.png</normaloff>:/icons/Datas/icons/logo.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -111,7 +111,7 @@ QListWidget::item:hover {
      <string>Ana Menü</string>
     </property>
     <property name="icon">
-     <iconset resource="gui.qrc">
+     <iconset>
       <normaloff>:/icons/Datas/icons/main_menu.png</normaloff>:/icons/Datas/icons/main_menu.png</iconset>
     </property>
    </item>
@@ -120,7 +120,7 @@ QListWidget::item:hover {
      <string>Asistan</string>
     </property>
     <property name="icon">
-     <iconset resource="gui.qrc">
+     <iconset>
       <normaloff>:/icons/Datas/icons/logo.png</normaloff>:/icons/Datas/icons/logo.png</iconset>
     </property>
    </item>
@@ -129,7 +129,7 @@ QListWidget::item:hover {
      <string>Müzik Oynatıcı</string>
     </property>
     <property name="icon">
-     <iconset resource="gui.qrc">
+     <iconset>
       <normaloff>:/icons/Datas/icons/music.png</normaloff>:/icons/Datas/icons/music.png</iconset>
     </property>
    </item>
@@ -150,7 +150,7 @@ QListWidget::item:hover {
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="gui.qrc">:/icons/Datas/icons/logo.png</pixmap>
+    <pixmap>:/icons/Datas/icons/logo.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -178,7 +178,7 @@ QListWidget::item:hover {
     <string/>
    </property>
    <property name="icon">
-    <iconset resource="gui.qrc">
+    <iconset>
      <normaloff>:/icons/Datas/icons/menu_open.png</normaloff>:/icons/Datas/icons/menu_open.png</iconset>
    </property>
    <property name="iconSize">
@@ -247,7 +247,7 @@ QListWidget::item:hover {
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="gui.qrc">
+     <iconset>
       <normaloff>:/icons/Datas/icons/error.png</normaloff>:/icons/Datas/icons/error.png</iconset>
     </property>
     <property name="iconSize">
@@ -273,7 +273,7 @@ QListWidget::item:hover {
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="gui.qrc">
+     <iconset>
       <normaloff>:/icons/Datas/icons/error.png</normaloff>:/icons/Datas/icons/error.png</iconset>
     </property>
     <property name="iconSize">
@@ -299,7 +299,7 @@ QListWidget::item:hover {
      <string/>
     </property>
     <property name="icon">
-     <iconset resource="gui.qrc">
+     <iconset>
       <normaloff>:/icons/Datas/icons/error.png</normaloff>:/icons/Datas/icons/error.png</iconset>
     </property>
     <property name="iconSize">
@@ -392,14 +392,14 @@ QListWidget::item:hover {
    </property>
    <widget class="QTextEdit" name="textEdit">
     <property name="enabled">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
       <width>551</width>
-      <height>391</height>
+      <height>381</height>
      </rect>
     </property>
     <property name="font">
@@ -534,7 +534,7 @@ QListWidget::item:hover {
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="gui.qrc">
+        <iconset>
          <normaloff>:/icons/Datas/icons/play.png</normaloff>:/icons/Datas/icons/play.png</iconset>
        </property>
        <property name="iconSize">
@@ -554,7 +554,7 @@ QListWidget::item:hover {
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="gui.qrc">
+        <iconset>
          <normaloff>:/icons/Datas/icons/pause.png</normaloff>:/icons/Datas/icons/pause.png</iconset>
        </property>
        <property name="iconSize">
@@ -574,7 +574,7 @@ QListWidget::item:hover {
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="gui.qrc">
+        <iconset>
          <normaloff>:/icons/Datas/icons/stop.png</normaloff>:/icons/Datas/icons/stop.png</iconset>
        </property>
        <property name="iconSize">
@@ -594,7 +594,7 @@ QListWidget::item:hover {
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="gui.qrc">
+        <iconset>
          <normaloff>:/icons/Datas/icons/v_UP.png</normaloff>:/icons/Datas/icons/v_UP.png</iconset>
        </property>
        <property name="iconSize">
@@ -614,7 +614,7 @@ QListWidget::item:hover {
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="gui.qrc">
+        <iconset>
          <normaloff>:/icons/Datas/icons/v_DOWN.png</normaloff>:/icons/Datas/icons/v_DOWN.png</iconset>
        </property>
        <property name="iconSize">
@@ -646,7 +646,7 @@ QListWidget::item:hover {
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="gui.qrc">
+        <iconset>
          <normaloff>:/icons/Datas/icons/prev.png</normaloff>:/icons/Datas/icons/prev.png</iconset>
        </property>
        <property name="iconSize">
@@ -666,7 +666,7 @@ QListWidget::item:hover {
         <string/>
        </property>
        <property name="icon">
-        <iconset resource="gui.qrc">
+        <iconset>
          <normaloff>:/icons/Datas/icons/next.png</normaloff>:/icons/Datas/icons/next.png</iconset>
        </property>
        <property name="iconSize">

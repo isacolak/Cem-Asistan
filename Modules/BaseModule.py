@@ -46,6 +46,8 @@ iinfo = info()
 
 def remove_file(path):
 	os.remove(path)
+if os.path.exists("Datas/chat_view.html"):
+	remove_file("Datas/chat_view.html")
 
 class hava:
 	def __init__(self):

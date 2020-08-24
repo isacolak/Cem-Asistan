@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-9">
+  <META HTTP-EQUIV="Content-language" CONTENT="tr">
+  <script type="text/javascript">
+    function scrollWin(x, y) {
+      window.scrollBy(x, y);
+    }
+  </script>
+  <style type="text/css">
+    .chat{
+        background: #72b8ff;
+        border-radius: 20px;
+        display: inline-block;
+        padding: 10px;
+        color: #fff;
+        font-weight: lighter;
+        font-size: small;
+        box-shadow: 1px 1px 2px rgba(0,0,0,.3);
+        margin: 5px;
+        position: relative;
+    }
+    .chat.u1{
+        float: left;
+        /*clear: both;*/
+        margin-top: 20px;
+        border-top-left-radius: 0px;
+    }
+    .chat.u1:before{
+        content: "";
+        width: 0px;
+        height: 0px;
+        display: block;
+        border-left: 5px solid transparent;
+        border-right: 5px solid #72b8ff;
+        border-top: 5px solid #72b8ff;
+        border-bottom: 5px solid transparent;
+        position: absolute;
+        top: 0px;
+        left: -10px;
+    }
+    .chat.u2{
+        float: right;
+        /*clear: both;*/
+        margin-top: 20px;
+        border-top-right-radius: 0px;
+        background: #00D025;
+    }
+    .chat.u2:before{
+        content: "";
+        width: 0px;
+        height: 0px;
+        display: block;
+        border-left: 5px solid #00D025;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #00D025;
+        border-bottom: 5px solid transparent;
+        position: absolute;
+        top: 0px;
+        right: -10px;
+    }
+    .img_c {
+      float: left;
+      max-width: 60px;
+      width: 100%;
+      margin-right: 20px;
+      border-radius: 50%;
+    }
+    .img_c.right {
+      float: right;
+      margin-left: 20px;
+      margin-right:0;
+    }
+    .container::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+    .time-right {
+      float: right;
+      color: #aaa;
+    }
+    .time-left {
+      float: left;
+      color: #999;
+    }
+    .container {
+      padding: 0px;
+      margin: 0px 0;
+    }
+  </style>
+</head>
+<body>
+  
